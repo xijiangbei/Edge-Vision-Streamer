@@ -83,7 +83,7 @@ public:
     void pushFrame(Mat frame) {
         int current_size = 0;
         { lock_guard<mutex> lock(mtx_lock); current_size = taskQueue_belt.size(); }
-        if (current_size >= 2) return; // 【高频考点：主动丢帧防 OOM】
+        if (current_size >= 2) return; 
         Mat smallFrame; resize(frame, smallFrame, Size(300, 300)); 
         auto smartPhoto = make_shared<Mat>(smallFrame.clone());          
         { lock_guard<mutex> lock(mtx_lock); taskQueue_belt.push(smartPhoto); }
